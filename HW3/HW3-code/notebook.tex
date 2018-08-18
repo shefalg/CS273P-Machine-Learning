@@ -1,0 +1,771 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{cs-273p-machine-learning}{%
+\section{CS 273P \textbar{} Machine
+Learning}\label{cs-273p-machine-learning}}
+
+Homework 3
+
+    \hypertarget{problem-1}{%
+\section{Problem 1}\label{problem-1}}
+
+    Data input
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{mltools} \PY{k}{as} \PY{n+nn}{ml}
+        \PY{k+kn}{from} \PY{n+nn}{logisticClassify2} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}To ensure function can also draw using plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{iris} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/iris.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{delimiter}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{iris}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{iris}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} get first two features \PYZam{} target}
+        \PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{ml}\PY{o}{.}\PY{n}{shuffleData}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)} \PY{c+c1}{\PYZsh{} reorder randomly (important later)}
+        \PY{n}{X}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{ml}\PY{o}{.}\PY{n}{rescale}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{c+c1}{\PYZsh{} works much better on rescaled data}
+        \PY{n}{XA}\PY{p}{,} \PY{n}{YA} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{Y}\PY{o}{\PYZlt{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{n}{Y}\PY{o}{\PYZlt{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{c+c1}{\PYZsh{} get class 0 vs 1 \PYZsh{}YA\PYZhy{}values with y\PYZlt{}2(0,1)}
+        \PY{n}{XB}\PY{p}{,} \PY{n}{YB} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{Y}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{n}{Y}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{} get class 1 vs 2 \PYZsh{}YB\PYZhy{}values with y\PYZgt{}0(1,2)}
+\end{Verbatim}
+
+
+    \hypertarget{problem-1-a}{%
+\section{Problem 1 (a)}\label{problem-1-a}}
+
+    Scatter plots for XA and XB.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Scatter plot for XA}
+        \PY{n}{col1}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{YA}\PY{o}{.}\PY{n}{size}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{YA}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{col1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{YA}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{col1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{col1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{col2}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{YB}\PY{o}{.}\PY{n}{size}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{YB}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{col2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{YB}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{col2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{col2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data Set XA: X[0] vs X[1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{XA}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{XA}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{n}{col1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}ax=plt.axis()}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linearly separable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Linearly separable
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Scatter plot for XB}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{XB}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{XB}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{YA}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{XB}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{XB}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{YA}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data Set XB: Data X[1] vs X[2]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Linearly separable.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Not Linearly separable.
+
+    \end{Verbatim}
+
+    \hypertarget{problem-1-b}{%
+\section{Problem 1 (b)}\label{problem-1-b}}
+
+    Definition for plotBoundary() function:
+
+    def plotBoundary(self,X,Y): ``''" Plot the (linear) decision boundary of
+the classifier, along with data ``''" \#print(len(self.theta)) if
+len(self.theta) != 3: raise ValueError(`Data \& model must be 2D'); ax =
+X.min(0),X.max(0); ax =
+(ax{[}0{]}{[}0{]},ax{[}1{]}{[}0{]},ax{[}0{]}{[}1{]},ax{[}1{]}{[}1{]});
+\#\# find points on decision boundary defined by theta0 + theta1 X1 +
+theta2 X2 == 0 x1b = np.array({[}ax{[}0{]},ax{[}1{]}{]}); \# at X1 =
+points in x1b x2b =
+-1\emph{(self.theta{[}0{]}+x1b}self.theta{[}1{]})/self.theta{[}2{]}; \#
+find x2 values as a function of x1's values \#\# Now plot the data and
+the resulting boundary: A = Y==self.classes{[}0{]}; \# and plot it:
+plt.plot(X{[}A,0{]},X{[}A,1{]},`b.',X{[}\textasciitilde{}A,0{]},X{[}\textasciitilde{}A,1{]},`r.',x1b,x2b,`k-');
+plt.axis(ax); plt.draw();
+
+    Initializing learner for XA.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{learner}\PY{o}{=} \PY{n}{logisticClassify2}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+        \PY{n}{learner}\PY{o}{.}\PY{n}{classes}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{YA}\PY{p}{)}
+        \PY{n}{wts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        \PY{n}{learner}\PY{o}{.}\PY{n}{theta}\PY{o}{=}\PY{n}{wts}\PY{p}{;}
+        \PY{n}{learner}\PY{o}{.}\PY{n}{plotBoundary}\PY{p}{(}\PY{n}{XA}\PY{p}{,}\PY{n}{YA}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Classifier sign( .5 + 1x1 − .25x2 ) with theta values {[}0.5,1,-0.25{]}
+holds suitable for XA.
+
+    Initializing learner for XB and assigning initial weights
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{learnerb}\PY{o}{=}\PY{n}{logisticClassify2}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+        \PY{n}{learnerb}\PY{o}{.}\PY{n}{classes}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{YB}\PY{p}{)}
+        \PY{n}{wts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        \PY{n}{learnerb}\PY{o}{.}\PY{n}{theta}\PY{o}{=}\PY{n}{wts}\PY{p}{;}
+        \PY{n}{learnerb}\PY{o}{.}\PY{n}{plotBoundary}\PY{p}{(}\PY{n}{XB}\PY{p}{,}\PY{n}{YB}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Classifier sign( .5 + 1x1 − .25x2 ) with theta values {[}0.5,1,-0.25{]}
+does not give a good estimate for XB.
+
+    \hypertarget{problem-1-c}{%
+\section{Problem 1 (c):}\label{problem-1-c}}
+
+    Predict function completion:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{YAhat}\PY{o}{=}\PY{n}{learner}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{XA}\PY{p}{)}\PY{p}{;}
+        \PY{n}{YBhat}\PY{o}{=}\PY{n}{learner}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{XB}\PY{p}{)}\PY{p}{;}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Error Data set A: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{learner}\PY{o}{.}\PY{n}{err}\PY{p}{(}\PY{n}{XA}\PY{p}{,}\PY{n}{YA}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Error Data set B: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{learner}\PY{o}{.}\PY{n}{err}\PY{p}{(}\PY{n}{XB}\PY{p}{,}\PY{n}{YB}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error Data set A:  0.050505050505050504
+Error Data set B:  0.5454545454545454
+
+    \end{Verbatim}
+
+    Code for predict function:
+
+def predict(self, X): ``''" Return the predictied class of each data
+point in X``''" \#\# compute linear response r{[}i{]} = theta0 + theta1
+X{[}i,1{]} + theta2 X{[}i,2{]} + \ldots{} for each i \#\# if z{[}i{]}
+\textgreater{} 0, predict class 1: Yhat{[}i{]} = self.classes{[}1{]}
+\#\# else predict class 0: Yhat{[}i{]} = self.classes{[}0{]}
+XX=np.c\_{[}np.ones({[}X.shape{[}0{]},1{]}),X{]} r=XX.dot(self.theta);
+Yhat=np.zeros({[}X.shape{[}0{]},1{]})
+Yhat{[}r\textgreater{}0{]}=self.classes{[}1{]}
+Yhat{[}r\textless{}=0{]}=self.classes{[}0{]} return Yhat
+
+    \hypertarget{problem-1-d}{%
+\section{Problem 1 (d)}\label{problem-1-d}}
+
+    Output predicted using given values YA
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{ml}\PY{o}{.}\PY{n}{plotClassify2D}\PY{p}{(}\PY{n}{learner}\PY{p}{,}\PY{n}{XA}\PY{p}{,}\PY{n}{YA}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Output of predict code matches the one predicted by plotClassify2D.
+
+    Output of plotClassify2D for YA shows that the boundary separates the
+two data sets with reasonable accuracy. Thus,output predicted (using
+predict function) YAhat matches output YA.
+
+    Output predicted using given values YB
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{ml}\PY{o}{.}\PY{n}{plotClassify2D}\PY{p}{(}\PY{n}{learnerb}\PY{p}{,}\PY{n}{XB}\PY{p}{,}\PY{n}{YB}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Output of predict code somewhat matches the one predicted by
+plotClassify2D. Error is due to random/uneven distribution of data
+points.
+
+    Output of plotClassify2D for YB shows that the boundary separates the
+two data sets with some accuracy. Thus,output predicted (using predict
+function) YBhat matches output YB.
+
+    \hypertarget{problem-1-e}{%
+\section{Problem 1 (e)}\label{problem-1-e}}
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:1e.jpg}
+\caption{1e.jpg}
+\end{figure}
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:Screen\%20Shot\%202018-05-13\%20at\%208.26.24\%20PM.png}
+\caption{Screen\%20Shot\%202018-05-13\%20at\%208.26.24\%20PM.png}
+\end{figure}
+
+    \hypertarget{problem-1-f}{%
+\section{Problem 1 (f) :}\label{problem-1-f}}
+
+    Complete train() function
+
+    def train(self, X, Y, initStep=1., stopTol=1e-4, stopEpochs=5000,
+plot=None): ``''" Train the logistic regression using stochastic
+gradient descent ``''" M,N = X.shape; \# initialize the model if
+necessary: self.classes = np.unique(Y); \# Y may have two classes, any
+values XX = np.hstack((np.ones((M,1)),X)) \# XX is X, but with an extra
+column of ones YY = ml.toIndex(Y,self.classes); \# YY is Y, but with
+canonical values 0 or 1 if len(self.theta)!=N+1:
+self.theta=np.random.rand(N+1); \# init loop variables: epoch=0;
+done=False; Jnll={[}{]}; J01={[}{]}; while not done: stepsize, epoch =
+initStep\emph{2.0/(2.0+epoch), epoch+1; \# update stepsize \# Do an SGD
+pass through the entire data set: for i in np.random.permutation(M): ri
+= XX{[}i{]}.dot(self.theta) \# compute linear response r(x) si =
+1./(1.+np.exp(-ri)) gradi = -(1-si)}XX{[}i,:{]} if YY{[}i{]} else
+si\emph{XX{[}i,:{]}; \#compute gradient of NLL loss self.theta -=
+stepsize } gradi; \# take a gradient step
+
+\begin{verbatim}
+        J01.append( self.err(X,Y) )  # evaluate the current error rate 
+        ## compute surrogate loss (logistic negative log-likelihood)
+        ##  Jsur = sum_i [ (log si) if yi==1 else (log(1-si)) ]
+        S = 1./(1.+np.exp(-(XX.dot(self.theta))))
+        Jsur = -np.mean(YY*np.log(S)+(1-YY)*np.log(1-S))
+        Jnll.append(Jsur) # TODO evaluate the current NLL loss
+        ## For debugging: you may want to print current parameters & losses
+        # print self.theta, ' => ', Jsur[-1], ' / ', J01[-1]  
+        # raw_input()   # pause for keystroke
+        # check stopping criteria: exit if exceeded # of epochs ( > stopEpochs)
+        # or if Jnll not changing between epochs ( < stopTol )
+        done = epoch>=stopEpochs or (epoch>1 and abs(Jnll[-1]-Jnll[-2])< stopTol);
+    plt.figure(1);plt.clf(); plt.plot(Jnll,'b-',J01,'r-'); plt.draw();    # plot losses
+    if N==2: plt.figure(2);plt.clf(); self.plotBoundary(X,Y); plt.draw(); # & predictor if 2D
+    plt.pause(.01);                    # let OS draw the plot
+\end{verbatim}
+
+    \hypertarget{problem-1-g}{%
+\section{Problem 1 (g)}\label{problem-1-g}}
+
+    Data Set XA:
+
+    Parameters to train() function:
+train(X,Y,alpha=0,initStep=1.0,stopTol=1e-4,stopEpochs=500,plot=None):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}learner.train(XA, YA, initStep=1e\PYZhy{}1,stopEpochs=1000,stopTol=1e\PYZhy{}5); }
+         \PY{n}{learner}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{XA}\PY{p}{,} \PY{n}{YA}\PY{p}{,} \PY{n}{initStep}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{stopEpochs}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{stopTol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{)}\PY{p}{;} 
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Alpha is 0,since it has no use here. If step size was not 1, we would
+observe many variations or no variation at all.
+
+    Final boundary for XA
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{learner}\PY{o}{.}\PY{n}{plotBoundary}\PY{p}{(}\PY{n}{XA}\PY{p}{,}\PY{n}{YA}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Data Set XB:
+
+Parameters to train() function:
+train(X,Y,alpha=0,initStep=0.05,stopTol=1e-4,stopEpochs=200,plot=None):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}learnerb.train(XA, YA, initStep=1e\PYZhy{}1,stopEpochs=1000,stopTol=1e\PYZhy{}5);}
+         \PY{n}{learnerb}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{XB}\PY{p}{,} \PY{n}{YB}\PY{p}{,} \PY{n}{initStep}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{n}{stopEpochs}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}\PY{n}{stopTol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Alpha is 0,since it has no use here. If step size was not 0.05, we would
+observe many variations or no variation at all. Number of iterations
+bounded to 200, due to time constraints. Final boundary for XB:
+
+    Final boundary for XB
+
+    learnerb.plotBoundary(XB,YB)
+
+    \hypertarget{problem-1-h}{%
+\section{Problem 1 (h):}\label{problem-1-h}}
+
+    Learner A
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{learnerA} \PY{o}{=} \PY{n}{logisticClassify2}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+         \PY{n}{wts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,}\PY{l+m+mf}{0.}\PY{p}{,}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+         \PY{n}{learnerA}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{wts}
+         \PY{n}{learnerA}\PY{o}{.}\PY{n}{myregtrain}\PY{p}{(}\PY{n}{XA}\PY{p}{,} \PY{n}{YA}\PY{p}{,} \PY{n}{initStep}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}1}\PY{p}{,}\PY{n}{stopEpochs}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,}\PY{n}{stopTol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ml}\PY{o}{.}\PY{n}{plotClassify2D}\PY{p}{(}\PY{n}{learnerA}\PY{p}{,}\PY{n}{XA}\PY{p}{,}\PY{n}{YA}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training error rate: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{learnerA}\PY{o}{.}\PY{n}{err}\PY{p}{(}\PY{n}{XA}\PY{p}{,}\PY{n}{YA}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training error rate:  0.08080808080808081
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{learner}\PY{o}{.}\PY{n}{theta}\PY{p}{,}\PY{n}{learnerA}\PY{o}{.}\PY{n}{theta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 4.39404387  7.33642527 -3.973653  ] [ 0.00639029  0.12477709 -0.1607586 ]
+
+    \end{Verbatim}
+
+    We can see that value of theta have dropped considerably. Also, error
+has increased due to L2 regularization term.
+
+    Learner B
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{learnerB2} \PY{o}{=} \PY{n}{logisticClassify2}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+         \PY{n}{wts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,}\PY{l+m+mf}{0.}\PY{p}{,}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+         \PY{n}{learnerB2}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{wts}
+         \PY{n}{learnerB2}\PY{o}{.}\PY{n}{myregtrain}\PY{p}{(}\PY{n}{XB}\PY{p}{,} \PY{n}{YB}\PY{p}{,} \PY{n}{initStep}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}1}\PY{p}{,}\PY{n}{stopEpochs}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,}\PY{n}{stopTol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ml}\PY{o}{.}\PY{n}{plotClassify2D}\PY{p}{(}\PY{n}{learnerB2}\PY{p}{,}\PY{n}{XB}\PY{p}{,}\PY{n}{YB}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training error rate: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{learnerB2}\PY{o}{.}\PY{n}{err}\PY{p}{(}\PY{n}{XB}\PY{p}{,}\PY{n}{YB}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training error rate:  0.26262626262626265
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{learnerb}\PY{o}{.}\PY{n}{theta}\PY{p}{,}\PY{n}{learnerB2}\PY{o}{.}\PY{n}{theta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-0.50786023  1.35789935  0.34555877] [-0.0084771   0.08792956  0.05711623]
+
+    \end{Verbatim}
+
+    We can see that value of theta have dropped considerably. Also, error
+has increased due to L2 regularization term.
+
+    \hypertarget{problem-2}{%
+\section{Problem 2:}\label{problem-2}}
+
+    \hypertarget{a}{%
+\section{2 a}\label{a}}
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:Screen\%20Shot\%202018-05-13\%20at\%209.06.12\%20PM.png}
+\caption{Screen\%20Shot\%202018-05-13\%20at\%209.06.12\%20PM.png}
+\end{figure}
+
+    \hypertarget{b}{%
+\section{2 b}\label{b}}
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:Screen\%20Shot\%202018-05-13\%20at\%209.06.21\%20PM.png}
+\caption{Screen\%20Shot\%202018-05-13\%20at\%209.06.21\%20PM.png}
+\end{figure}
+
+    \hypertarget{c}{%
+\section{2 c}\label{c}}
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:Screen\%20Shot\%202018-05-13\%20at\%209.07.00\%20PM.png}
+\caption{Screen\%20Shot\%202018-05-13\%20at\%209.07.00\%20PM.png}
+\end{figure}
+
+    \hypertarget{d}{%
+\section{2 d}\label{d}}
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:Screen\%20Shot\%202018-05-13\%20at\%209.08.36\%20PM.png}
+\caption{Screen\%20Shot\%202018-05-13\%20at\%209.08.36\%20PM.png}
+\end{figure}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
